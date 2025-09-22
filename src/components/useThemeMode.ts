@@ -1,23 +1,18 @@
-
 import { useEffect, useState } from "react";
 
 export function useThemeMode() {
-  const [theme, setTheme] = useState(() =>
+  const [theme, setThemeState] = useState(() =>
     typeof window !== "undefined"
       ? document.documentElement.getAttribute("data-theme") || "light"
       : "light"
   );
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const el = document.documentElement;
-    const update = () => setTheme(el.getAttribute("data-theme") || "light");
-    update();
-    const observer = new MutationObserver(() => {
-      update();
-    });
-    observer.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => observer.disconnect();
+    const handler = () => {
+      setThemeState(document.documentElement.getAttribute("data-theme") || "light");
+    };
+    window.addEventListener("themechange", handler);
+    return () => window.removeEventListener("themechange", handler);
   }, []);
 
   return theme;
