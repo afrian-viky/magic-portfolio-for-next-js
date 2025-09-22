@@ -1,5 +1,6 @@
 import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
-import { Line, Logo, Row, Text } from "@once-ui-system/core";
+import { Line, Row, Text } from "@once-ui-system/core";
+import { DynamicLogo } from "@/components/DynamicLogo";
 import { useThemeMode } from "@/components/useThemeMode";
 
 const person: Person = {
@@ -67,15 +68,7 @@ const home: Home = {
   subline: (
     <>
       I'm Selene, a design engineer at{" "}
-      {(() => {
-        const theme = useThemeMode();
-        return (
-          <Logo
-            icon={theme === "light" ? "/trademarks/wordmark-light.svg" : "/trademarks/wordmark-dark.svg"}
-            style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}
-          />
-        );
-      })()}
+  <DynamicLogo style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }} />
       , where I craft intuitive
       <br /> user experiences. After hours, I build my own projects.
     </>
