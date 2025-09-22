@@ -7,6 +7,7 @@ import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, blog, work, gallery } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
+import { useThemeMode } from "./useThemeMode";
 import styles from "./Header.module.scss";
 
 type TimeDisplayProps = {
@@ -44,6 +45,7 @@ export default TimeDisplay;
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const theme = useThemeMode();
 
   return (
     <>
@@ -58,6 +60,17 @@ export const Header = () => {
         height="80"
         zIndex={9}
       />
+      <div style={{ position: "fixed", left: 24, top: 24, zIndex: 100 }}>
+        <img
+          src={
+            theme === "light"
+              ? "/trademarks/wordmark-light.svg"
+              : "/trademarks/wordmark-dark.svg"
+          }
+          alt="Wordmark"
+          height={32}
+        />
+      </div>
       <Row
         fitHeight
         className={styles.position}
